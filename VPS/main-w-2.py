@@ -142,12 +142,12 @@ def reCAPTCHA():
     global block
     print('- click checkbox')
     click(S('.recaptcha-checkbox-borderAnimation'))
-    # screenshot() # debug
+    screenshot()
     delay(4)
     if S('#recaptcha-audio-button').exists():
         print('- audio button found')
         click(S('#recaptcha-audio-button'))
-        # screenshot() # debug
+        screenshot() 
         delay(4)
         getAudioLink()
         return block
@@ -210,7 +210,7 @@ def submit():
         delay(2)
     except Exception as e:
         print('*** 💣 some error in func submit!, stop running ***\nError:', e)
-
+        screenshot()
     cloudflareDT()
 
     try:
@@ -230,7 +230,7 @@ def submit():
     except Exception as e:
         body = '*** 💣 some error in func submit!, stop running ***'
         print('Error:', e)
-        screenshot()  # debug
+        screenshot()
         sys.exit(body)
 
 
@@ -288,6 +288,7 @@ def renewVPS():
                 textList = find_all(S('.rc-doscaptcha-body-text'))
                 result = [key.web_element.text for key in textList][0]
                 body = '*** Possibly blocked by google! ***'
+                screenshot()
                 print(body, '\n', result)
                 push(body)
             else:
@@ -298,7 +299,7 @@ def renewVPS():
         extendResult()
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
-        # screenshot()
+        screenshot()
 
 
 def extendResult():
@@ -312,6 +313,7 @@ def extendResult():
         # checkResult(result)
         if 'Robot verification failed' in result:
             print('*** %s ***' % result)
+            screenshot()
             renewVPS()
         elif 'renewed' in result:
             result = '🎉 ' + result
@@ -320,8 +322,8 @@ def extendResult():
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
-        # renewVPS()
-    # return result
+        renewVPS()
+    return result
 
 
 def push(body):
