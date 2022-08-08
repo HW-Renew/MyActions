@@ -1,0 +1,55 @@
+
+name: 'TEST'
+
+on:
+  workflow_dispatch:
+  
+  
+jobs:
+  build:
+    #runs-on: macos-latest
+    runs-on: macos-12
+
+    steps:
+        - name: 'Date'
+          run: |
+            cd Api
+            cat w-2.txt
+            
+            
+        - name: 'Convert to json'
+          run: |
+             ##akamino 交给你了
+             ##已知：在 w-2.txt 中
+             ##有🎉 Your VPS has been renewed until August 15, 2022
+             ##请 让变量 $extend  =等于日期
+             ##例如 
+             extend="2022.08.15"
+             echo "{" >> w-2.json
+             echo "  "success": "true"," >> w-2.json
+             echo "  "id": "woiden-02"," >> w-2.json
+             echo "  "date": "${extend}"" >> w-2.json
+             echo "}" >> w-2.json
+              
+        - name: 'Delete Files'
+          run: |
+             rm -rf audio.mp3
+             rm -rf w-2.txt
+             rm -rf capture.png
+
+        - name: 'Commit Files'
+          run: |
+             git config --local user.email "action@github.com"
+             git config --local user.name "GitHub Action"
+             git add .
+             git diff --quiet && git diff --staged --quiet || git commit -am "$(date '+%Y.%m.%d %H:%M:%S') H-1"
+             echo ::set-output name=status::success
+             
+        - name: 'GitHub Push'
+          uses: ad-m/github-push-action@v0.6.0
+          with:
+             github_token: ${{ secrets.GITHUB_TOKEN }}
+             branch: ${{ github.ref }}
+
+
+  
