@@ -327,6 +327,12 @@ def extendResult():
         renewVPS()
     return result
 
+def datetime():
+    matches = datefinder.find_dates(result)
+    for match in matches:
+        print(match)
+        with open('Api/w-2.txt', 'w') as f:
+             f.write(match)
 
 def push(body):
     print('- waiting for push result')
@@ -358,16 +364,7 @@ def push(body):
     print('- finish!')
     kill_browser()
 
-def datetime():
-    dateContent = result
-    matches = datefinder.find_dates(dateContent)
     
-    for match in matches:
-        print(match)
-        with open('Api/w-2.txt', 'w') as f:
-             f.write(match)
-    
-
 def funcCAPTCHA():
     print('- do CAPTCHA')
     divList = find_all(S('.col-sm-3'))
