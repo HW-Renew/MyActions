@@ -317,6 +317,8 @@ def extendResult():
             renewVPS()
         elif 'renewed' in result:
             result = '🎉 ' + result
+            with open('Api/w-2.json', 'w') as f:
+                f.write(result)
             print(result)
             push(result)
     else:
@@ -354,7 +356,7 @@ def push(body):
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
 
     print('- finish!')
-    # kill_browser()
+    kill_browser()
 
 
 def funcCAPTCHA():
