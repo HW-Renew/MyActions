@@ -52,8 +52,8 @@ jobs:
              extend="2022.08.15"
              wget -O Api/w-2.json  --no-check-certificate https://speedcloud.cf/api/v3/file/source/61195/example.json?sign=QoJqHGiCVP2xkf1KjoYqXKaiSrL7wc_gaNSfcHYMhdA%3D%3A0
              echo "-Downloaded json"
-             sed -i 's/'"name"'/'"w-2"'/g' Api/w-2.json
-             sed -i 's/'"extend"'/'"$extend"'/g' Api/w-2.json
+             sed -i 's/'"name"'/'"w-2"'/g' "Api/w-2.json"
+             sed -i 's/'"extend"'/'"$extend"'/g' "Api/w-2.json"
 
         - name: 'Delete Files'
           run: |
