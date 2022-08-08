@@ -315,6 +315,8 @@ def extendResult():
             renewVPS()
         elif 'renewed' in result:
             result = '🎉 ' + result
+            with open('Api/hax-1.txt', 'w') as f:
+                f.write(result)
             print(result)
             push(result)
     else:
@@ -323,9 +325,6 @@ def extendResult():
         # renewVPS()
     # return result
 
-if 'renewed' in result:
-    with open('Api/hax-1.txt', 'w') as f:
-        f.write(result)
     
 def push(body):
     print('- waiting for push result')
