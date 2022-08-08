@@ -1,65 +1,50 @@
 # -*- coding: utf-8 -*-
 # https://github.com/mybdye 🌟
-
 import base64
 import os
 import ssl
 import sys
 import time
 import urllib
-import datefinder
-
 import requests
 import undetected_chromedriver as uc
 from helium import *
 from selenium.webdriver.common.by import By
-
 # 关闭证书验证
 ssl._create_default_https_context = ssl._create_unverified_context
-
 try:
     USER_ID_W_2 = os.environ['USER_ID_W_2']
 except:
     # 本地调试用
     USER_ID_W_2 = ''
-
 try:
     PASS_WD_W_2 = os.environ['PASS_WD_W_2']
 except:
     # 本地调试用
     PASS_WD_W_2 = ''
-
 try:
     BARK_KEY = os.environ['BARK_KEY']
 except:
     # 本地调试用
     BARK_KEY = ''
-
 try:
     TG_BOT_TOKEN = os.environ['TG_BOT_TOKEN']
 except:
     # 本地调试用
     TG_BOT_TOKEN = ''
-
 try:
     TG_USER_ID = os.environ['TG_USER_ID']
 except:
     # 本地调试用
     TG_USER_ID = ''
-
-
 def urlDecode(s):
     return str(base64.b64decode(s + '=' * (4 - len(s) % 4))).split('\'')[1]
-
-
 def scrollDown(key):
     i = 0
     while not S(key).exists():
         scroll_down(num_pixels=100)
         i = i + 1
         print('- scroll down 100px * %d for searching S(\'%s\')' % (i, key))
-
-
 def speechToText():
     driver.tab_new(urlSpeech)
     delay(2)
@@ -83,8 +68,6 @@ def speechToText():
         print('- get text:', text)
     driver.close()
     return text
-
-
 def getAudioLink():
     global block
     print('- audio file link searching...')
@@ -95,13 +78,11 @@ def getAudioLink():
         except:
             src = Link('或者以 MP3 格式下载音频').href
         print('- get src:', src)
-
         # 下载音频文件
         urllib.request.urlretrieve(src, os.getcwd() + audioFile)
         delay(4)
         text = speechToText()
         print('- waiting for switch to first window')
-
         # 切回第一个 tab
         # driver = get_driver()
         driver.switch_to.window(driver.window_handles[0])
@@ -121,24 +102,19 @@ def getAudioLink():
             click(S('#rc-button goog-inline-block rc-button-reload'))
             getAudioLink()
         delay(1)
-
     elif Text('Try again later').exists() or Text('稍后重试').exists():
         textblock = S('.rc-doscaptcha-body-text').web_element.text
         print(textblock)
         body = ' *** 💣 Possibly blocked by google! ***\n' + textblock
         push(body)
         block = True
-
     elif not CheckBox('I\'m not a robot').is_checked() or CheckBox('我不是机器人').is_checked():
         print('*** checkbox issue ***')
         reCAPTCHA()
-
     else:
         print('*** audio download element not found, stop running ***')
         # print('- title:', Window().title)
         # screenshot() # debug
-
-
 def reCAPTCHA():
     global block
     print('- click checkbox')
@@ -152,8 +128,6 @@ def reCAPTCHA():
         delay(4)
         getAudioLink()
         return block
-
-
 def cloudflareDT():
     try:
         i = 0
@@ -165,17 +139,13 @@ def cloudflareDT():
             print('*** cloudflare 5s detection finish! ***')
     except Exception as e:
         print('Error:', e)
-
-
 def login():
     print('- login')
     delay(1)
     # CF
     cloudflareDT()
-
     #scrollDown('@login')
     #scrollDown('.btn btn-primary')
-
     print('- fill user id')
     if USER_ID_W_2 == '':
         print('*** USER_ID_W_2 is empty ***')
@@ -188,7 +158,6 @@ def login():
         kill_browser()
     else:
         write(PASS_WD_W_2, into=S('@password'))
-
     # if Text('reCAPTCHA').exists():
     if Text('I\'m not a robot').exists() or Text('我不是机器人').exists():
         # if S('#recaptcha-token').exists():
@@ -201,8 +170,6 @@ def login():
     else:
         print('- reCAPTCHA not found!')
         submit()
-
-
 def submit():
     print('- submit')
     try:
@@ -213,7 +180,6 @@ def submit():
         print('*** 💣 some error in func submit!, stop running ***\nError:', e)
         screenshot()
     cloudflareDT()
-
     try:
         wait_until(Text('Please correct your captcha!.').exists)
         print('*** Network issue maybe, reCAPTCHA load fail! ***')
@@ -233,12 +199,8 @@ def submit():
         print('Error:', e)
         screenshot()
         sys.exit(body)
-
-
 def delay(i):
     time.sleep(i)
-
-
 def screenshot():  # debug
     driver = get_driver()
     driver.get_screenshot_as_file(os.getcwd() + imgFile)
@@ -259,17 +221,13 @@ def screenshot():  # debug
     print('*** 📷 capture src:', result)
     driver.close()
     # driver.switch_to.window(driver.window_handles[0])
-
-
 def renewVPS():
     global block
     print('- renew VPS')
     go_to(urlRenew)
     delay(1)
     cloudflareDT()
-
     scrollDown('@submit_button')
-
     delay(1)
     if S('#web_address').exists():
         print('- fill web address')
@@ -301,8 +259,6 @@ def renewVPS():
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
-
-
 def extendResult():
     print('- waiting for extend result response')
     delay(10)
@@ -318,22 +274,15 @@ def extendResult():
             renewVPS()
         elif 'renewed' in result:
             result = '🎉 ' + result
+            with open('Api/w-2.txt', 'w') as f:
+                f.write(result)
             print(result)
-            datetime()
-            push(match)
+            push(result)
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
         renewVPS()
     return result
-
-def datetime():
-    matches = datefinder.find_dates(result)
-    for match in matches:
-        print(match)
-        with open('Api/w-2.txt', 'w') as f:
-             f.write(match)
-
 def push(body):
     print('- waiting for push result')
     # bark push
@@ -360,11 +309,8 @@ def push(body):
             print('- tg push Done!')
         else:
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
-
     print('- finish!')
     kill_browser()
-
-    
 def funcCAPTCHA():
     print('- do CAPTCHA')
     divList = find_all(S('.col-sm-3'))
@@ -378,7 +324,6 @@ def funcCAPTCHA():
     number2 = int(
         driver.find_element(By.XPATH, '//*[@id="form-submit"]/div[2]/div[1]/img[2]').get_attribute('src').split('-')[1][
             0])
-
     if method == '+':
         captcha_result = number1 + number2
     elif method == '-':
@@ -391,8 +336,6 @@ def funcCAPTCHA():
         captcha_result = number1 / number2
     print('- captcha result: %d %s %d = %s' % (number1, method, number2, captcha_result))
     return captcha_result
-
-
 audioFile = '/audio.mp3'
 imgFile = '/capture.png'
 ##
@@ -404,7 +347,6 @@ urlSpeech = urlDecode('aHR0cHM6Ly9zcGVlY2gtdG8tdGV4dC1kZW1vLm5nLmJsdWVtaXgubmV0'
 urlMJJ = urlDecode('aHR0cDovL21qanpwLmNm')
 block = False
 # robot = 0
-
 print('- loading...')
 driver = uc.Chrome(use_subprocess=True)
 driver.set_window_size(785, 627)
