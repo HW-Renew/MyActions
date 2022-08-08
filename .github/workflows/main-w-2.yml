@@ -50,15 +50,7 @@ jobs:
              ##请 让变量 $extend  =等于日期
              ##例如 
              extend="2022.08.15"
-             cat >Api/t.json <<EOF
-{
-  "code": "0",
-  "success": "true",
-  "id": "w-02",
-  "date": "${extend}"
-}
-EOF
-              
+
         - name: 'Delete Files'
           run: |
              rm -rf audio.mp3
