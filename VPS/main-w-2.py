@@ -317,7 +317,7 @@ def extendResult():
             renewVPS()
         elif 'renewed' in result:
             result = '🎉 ' + result
-            with open('Api/w-2.json', 'w') as f:
+            with open('Api/w-2.txt', 'w') as f:
                 f.write(result)
             print(result)
             push(result)
