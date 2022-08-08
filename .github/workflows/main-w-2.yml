@@ -54,6 +54,7 @@ jobs:
           run: |
              rm -rf audio.mp3
              rm -rf w-2.txt
+             rm -rf capture.png
 
         - name: 'Commit Files'
           run: |
