@@ -323,7 +323,10 @@ def extendResult():
         # renewVPS()
     # return result
 
-
+if 'renewed' in result:
+    with open('Api/hax-1.txt', 'w') as f:
+        f.write(result)
+    
 def push(body):
     print('- waiting for push result')
     # bark push
@@ -352,8 +355,9 @@ def push(body):
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
 
     print('- finish!')
-    # kill_browser()
+    kill_browser()
 
+    
 
 def funcCAPTCHA():
     print('- do CAPTCHA')
