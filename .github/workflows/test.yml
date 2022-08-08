@@ -13,8 +13,10 @@ jobs:
     steps:
         - name: 'Date'
           run: |
+            pip install datefinder
             cd Api
             cat w-2.txt
+            python datefinder.py
             
             
         - name: 'Convert to json'
