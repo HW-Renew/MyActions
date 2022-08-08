@@ -319,7 +319,8 @@ def extendResult():
         elif 'renewed' in result:
             result = '🎉 ' + result
             print(result)
-            push(result)
+            datetime()
+            push(match)
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
