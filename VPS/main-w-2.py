@@ -7,6 +7,7 @@ import ssl
 import sys
 import time
 import urllib
+import datefinder
 
 import requests
 import undetected_chromedriver as uc
@@ -317,8 +318,6 @@ def extendResult():
             renewVPS()
         elif 'renewed' in result:
             result = '🎉 ' + result
-            with open('Api/w-2.txt', 'w') as f:
-                f.write(result)
             print(result)
             push(result)
     else:
@@ -358,6 +357,15 @@ def push(body):
     print('- finish!')
     kill_browser()
 
+def datetime():
+    dateContent = result
+    matches = datefinder.find_dates(dateContent)
+    
+    for match in matches:
+        print(match)
+        with open('Api/w-2.txt', 'w') as f:
+             f.write(match)
+    
 
 def funcCAPTCHA():
     print('- do CAPTCHA')
