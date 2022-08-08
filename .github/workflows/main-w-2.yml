@@ -31,16 +31,16 @@ jobs:
             pip3 uninstall selenium -y
             pip3 install selenium==4.2.0
             
-        - name: 'Renew'
-          env:
-            USER_ID_W_2: ${{ secrets.USER_ID_W_2 }}
-            PASS_WD_W_2: ${{ secrets.PASS_WD_W_2 }}
-            BARK_KEY: ${{ secrets.BARK_KEY }}
-            TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-            TG_USER_ID: ${{ secrets.TG_USER_ID }}
+     #   - name: 'Renew'
+       #   env:
+       #     USER_ID_W_2: ${{ secrets.USER_ID_W_2 }}
+       #     PASS_WD_W_2: ${{ secrets.PASS_WD_W_2 }}
+       #     BARK_KEY: ${{ secrets.BARK_KEY }}
+        #    TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+        #    TG_USER_ID: ${{ secrets.TG_USER_ID }}
 
-          run: |
-            python3 VPS/main-w-2.py
+      #    run: |
+      #      python3 VPS/main-w-2.py
          
         - name: 'Convert to json'
           run: |
@@ -50,11 +50,14 @@ jobs:
              ##请 让变量 $extend  =等于日期
              ##例如 
              extend="2022.08.15"
-             echo "{" >> w-2.json
-             echo "  "success": "true"," >> w-2.json
-             echo "  "id": "woiden-02"," >> w-2.json
-             echo "  "date": "${extend}"" >> w-2.json
-             echo "}" >> w-2.json
+             cat >Api/t.json <<EOF
+{
+  "code": "0",
+  "success": "true",
+  "id": "w-02",
+  "date": "${extend}"
+}
+EOF
               
         - name: 'Delete Files'
           run: |
