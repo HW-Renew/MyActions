@@ -41,3 +41,21 @@ jobs:
           run: |
             python3 VPS/main-w-5.py
 
+        - name: 'Delete Files'
+          run: |
+             rm -rf audio.mp3
+             rm -rf capture.png
+
+        - name: 'Commit Files'
+          run: |
+             git config --local user.email "action@github.com"
+             git config --local user.name "GitHub Action"
+             git add .
+             git diff --quiet && git diff --staged --quiet || git commit -am "$(date '+%Y.%m.%d %H:%M:%S') H-1"
+             echo ::set-output name=status::success
+             
+        - name: 'GitHub Push'
+          uses: ad-m/github-push-action@v0.6.0
+          with:
+             github_token: ${{ secrets.GITHUB_TOKEN }}
+             branch: ${{ github.ref }}
