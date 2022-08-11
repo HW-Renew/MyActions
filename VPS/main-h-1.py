@@ -319,6 +319,7 @@ def extendResult():
                 f.write(result)
             print(result)
             push(result)
+            Logout()
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
@@ -354,9 +355,14 @@ def push(body):
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
 
     print('- finish!')
-    kill_browser()
+    # kill_browser()
 
-    
+def Logout():
+    wait_until(Button('Logout').exists)
+    highlight(Button('Logout'))
+    time.sleep(2)
+    click(Button('Logout'))
+    kill_browser()
 
 def funcCAPTCHA():
     print('- do CAPTCHA')
