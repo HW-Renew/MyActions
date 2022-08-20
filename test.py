@@ -342,7 +342,7 @@ def extendResult():
             print('*** %s ***' % result)
             renewVPS()
         elif 'renewed' in result:
-            'extend-' + NUM + '-result' = 'success'
+            'extend-' + NUM + '-result' == 'success'
             
             print(result)
            # push(result)
