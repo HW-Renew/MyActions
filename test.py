@@ -15,52 +15,52 @@ from selenium.webdriver.common.by import By
 ssl._create_default_https_context = ssl._create_unverified_context
 
 try:
-    USER_ID_H_1 = os.environ['USER_ID_H_1']
+    USER_ID_W_1 = os.environ['USER_ID_W_1']
 except:
     # 本地调试用
-    USER_ID_H_1 = ''
+    USER_ID_W_1 = ''
 
 try:
-    PASS_WD_H_1 = os.environ['PASS_WD_H_1']
+    PASS_WD_W_1 = os.environ['PASS_WD_W_1']
 except:
     # 本地调试用
-    PASS_WD_H_1 = ''
+    PASS_WD_W_1 = ''
 
 try:
-    USER_ID_H_2 = os.environ['USER_ID_H_2']
+    USER_ID_W_2 = os.environ['USER_ID_W_2']
 except:
     # 本地调试用
-    USER_ID_H_2 = ''
+    USER_ID_W_2 = ''
 
 try:
-    PASS_WD_H_2 = os.environ['PASS_WD_H_2']
+    PASS_WD_W_2 = os.environ['PASS_WD_W_2']
 except:
     # 本地调试用
-    PASS_WD_H_2 = ''
+    PASS_WD_W_2 = ''
 
 try:
-    USER_ID_H_3 = os.environ['USER_ID_H_3']
+    USER_ID_W_3 = os.environ['USER_ID_W_3']
 except:
     # 本地调试用
-    USER_ID_H_3 = ''
+    USER_ID_W_3 = ''
 
 try:
-    PASS_WD_H_3 = os.environ['PASS_WD_H_3']
+    PASS_WD_W_3 = os.environ['PASS_WD_W_3']
 except:
     # 本地调试用
-    PASS_WD_H_3 = ''
+    PASS_WD_W_3 = ''
 
 try:
-    USER_ID_H_4 = os.environ['USER_ID_H_4']
+    USER_ID_W_4 = os.environ['USER_ID_W_4']
 except:
     # 本地调试用
-    USER_ID_H_4 = ''
+    USER_ID_W_4 = ''
 
 try:
-    PASS_WD_H_4 = os.environ['PASS_WD_H_4']
+    PASS_WD_W_4 = os.environ['PASS_WD_W_4']
 except:
     # 本地调试用
-    PASS_WD_H_4 = ''
+    PASS_WD_W_4 = ''
 
 try:
     TG_BOT_TOKEN = os.environ['TG_BOT_TOKEN']
@@ -204,17 +204,17 @@ def login():
     #scrollDown('.btn btn-primary')
 
     print('- fill user id')
-    if USER_ID_H_1 == '':
-        print('*** USER_ID_H_1 is empty ***')
+    if USER_ID_W_1 == '':
+        print('*** USER_ID_W_1 is empty ***')
         kill_browser()
     else:
-        write(USER_ID_H_1, into=S('@username'))
+        write(USER_ID_W_1, into=S('@username'))
     print('- fill password')
-    if PASS_WD_H_1 == '':
-        print('*** PASS_WD_H_1 is empty ***')
+    if PASS_WD_W_1 == '':
+        print('*** PASS_WD_W_1 is empty ***')
         kill_browser()
     else:
-        write(PASS_WD_H_1, into=S('@password'))
+        write(PASS_WD_W_1, into=S('@password'))
 
     # if Text('reCAPTCHA').exists():
     if Text('I\'m not a robot').exists() or Text('我不是机器人').exists():
@@ -361,24 +361,24 @@ def push():
     else:
         title = '🎉   Information    🎉\n\n'
         if extend-1-result == 'success':
-           extend-1-push = 'Hax  -  01   Success  ' + extend-1-time + '\n'
+           extend-1-push = 'Woiden  -  01   Success  ' + extend-1-time + '\n'
         else:
-           extend-1-push = 'Hax  -  01   Failed  ' + '\n'
+           extend-1-push = 'Woiden  -  01   Failed  ' + '\n'
 
         if extend-2-result == 'success':
-           extend-2-push = 'Hax  -  02   Success  ' + extend-2-time + '\n'
+           extend-2-push = 'Woiden  -  02   Success  ' + extend-2-time + '\n'
         else:
-           extend-2-push = 'Hax  -  02   Failed  ' + '\n'
+           extend-2-push = 'Woiden  -  02   Failed  ' + '\n'
 
         if extend-3-result == 'success':
-           extend-3-push = 'Hax  -  03   Success  ' + extend-3-time + '\n'
+           extend-3-push = 'Woiden  -  03   Success  ' + extend-3-time + '\n'
         else:
-           extend-3-push = 'Hax  -  03   Failed  ' + '\n'
+           extend-3-push = 'Woiden  -  03   Failed  ' + '\n'
 
         if extend-4-result == 'success':
-           extend-4-push = 'Hax  -  04   Success  ' + extend-4-time + '\n'
+           extend-4-push = 'Woiden  -  04   Success  ' + extend-4-time + '\n'
         else:
-           extend-4-push = 'Hax  -  04   Failed  ' + '\n'
+           extend-4-push = 'Woiden  -  04   Failed  ' + '\n'
 
            tg-push = title + extend-1-push + extend-2-push + extend-3-push + extend-4-push + extend-5-push + extend-6-push + extend-7-push + extend-8-push + extend-9-push + extend-10-push + extend-11-push + extend-12-push + extend-13-push
         tgapi = 'https://api.telegram.org' + '/bot' + TG_BOT_TOKEN + '/sendMessage'
@@ -429,9 +429,9 @@ def funcCAPTCHA():
 audioFile = '/audio.mp3'
 imgFile = '/capture.png'
 ##
-urlWrite = urlDecode('aGF4LmNvLmlk')
-urlLogin = urlDecode('aHR0cHM6Ly9oYXguY28uaWQvbG9naW4=')
-urlRenew = urlDecode('aHR0cHM6Ly9oYXguY28uaWQvdnBzLXJlbmV3')
+urlWrite = urlDecode('d29pZGVuLmlk')
+urlLogin = urlDecode('aHR0cHM6Ly93b2lkZW4uaWQvbG9naW4=')
+urlRenew = urlDecode('aHR0cHM6Ly93b2lkZW4uaWQvdnBzLXJlbmV3')
 ##
 urlSpeech = urlDecode('aHR0cHM6Ly9zcGVlY2gtdG8tdGV4dC1kZW1vLm5nLmJsdWVtaXgubmV0')
 urlMJJ = urlDecode('aHR0cDovL21qanpwLmNm')
@@ -443,27 +443,27 @@ driver = uc.Chrome(use_subprocess=True)
 driver.set_window_size(785, 627)
 delay(2)
 set_driver(driver)
-## Hax 01
+## Woiden 01
 NUM = '1'
-USER_ID_H = USER_ID_H_1
-PASS_WD_H = PASS_WD_H_1
+USER_ID_W = USER_ID_W_1
+PASS_WD_W = PASS_WD_W_1
 go_to(urlLogin)
 login()
-## Hax 02
+## Woiden 02
 NUM = '2'
-USER_ID_H = USER_ID_H_2
-PASS_WD_H = PASS_WD_H_2
+USER_ID_W = USER_ID_W_2
+PASS_WD_W = PASS_WD_W_2
 go_to(urlLogin)
 login()
-## Hax 03
+## Woiden 03
 NUM = '3'
-USER_ID_H = USER_ID_H_1
-PASS_WD_H = PASS_WD_H_1
+USER_ID_W = USER_ID_W_1
+PASS_WD_W = PASS_WD_W_1
 go_to(urlLogin)
 login()
-## Hax 04
+## Woiden 04
 NUM = '4'
-USER_ID_H = USER_ID_H_2
-PASS_WD_H = PASS_WD_H_2
+USER_ID_W = USER_ID_W_2
+PASS_WD_W = PASS_WD_W_2
 go_to(urlLogin)
 login()
