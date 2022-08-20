@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# https://github.com/mybdye 🌟
+# Tony #
 
 import base64
 import os
@@ -7,7 +6,6 @@ import ssl
 import sys
 import time
 import urllib
-
 import requests
 import undetected_chromedriver as uc
 from helium import *
@@ -17,22 +15,52 @@ from selenium.webdriver.common.by import By
 ssl._create_default_https_context = ssl._create_unverified_context
 
 try:
-    USER_ID_W_4 = os.environ['USER_ID_W_4']
+    USER_ID_H_1 = os.environ['USER_ID_H_1']
 except:
     # 本地调试用
-    USER_ID_W_4 = ''
+    USER_ID_H_1 = ''
 
 try:
-    PASS_WD_W_4 = os.environ['PASS_WD_W_4']
+    PASS_WD_H_1 = os.environ['PASS_WD_H_1']
 except:
     # 本地调试用
-    PASS_WD_W_4 = ''
+    PASS_WD_H_1 = ''
 
 try:
-    BARK_KEY = os.environ['BARK_KEY']
+    USER_ID_H_2 = os.environ['USER_ID_H_2']
 except:
     # 本地调试用
-    BARK_KEY = ''
+    USER_ID_H_2 = ''
+
+try:
+    PASS_WD_H_2 = os.environ['PASS_WD_H_2']
+except:
+    # 本地调试用
+    PASS_WD_H_2 = ''
+
+try:
+    USER_ID_H_3 = os.environ['USER_ID_H_3']
+except:
+    # 本地调试用
+    USER_ID_H_3 = ''
+
+try:
+    PASS_WD_H_3 = os.environ['PASS_WD_H_3']
+except:
+    # 本地调试用
+    PASS_WD_H_3 = ''
+
+try:
+    USER_ID_H_4 = os.environ['USER_ID_H_4']
+except:
+    # 本地调试用
+    USER_ID_H_4 = ''
+
+try:
+    PASS_WD_H_4 = os.environ['PASS_WD_H_4']
+except:
+    # 本地调试用
+    PASS_WD_H_4 = ''
 
 try:
     TG_BOT_TOKEN = os.environ['TG_BOT_TOKEN']
@@ -134,20 +162,20 @@ def getAudioLink():
 
     else:
         print('*** audio download element not found, stop running ***')
-        # print('- title:', Window().title)
-        # screenshot() # debug
+        print('- title:', Window().title)
+        screenshot() # debug
 
 
 def reCAPTCHA():
     global block
     print('- click checkbox')
     click(S('.recaptcha-checkbox-borderAnimation'))
-    # screenshot() # debug
+    screenshot() # debug
     delay(4)
     if S('#recaptcha-audio-button').exists():
         print('- audio button found')
         click(S('#recaptcha-audio-button'))
-        # screenshot() # debug
+        screenshot() # debug
         delay(4)
         getAudioLink()
         return block
@@ -156,7 +184,7 @@ def reCAPTCHA():
 def cloudflareDT():
     try:
         i = 0
-        while Text('Checking your browser before accessing').exists():
+        while Text('Checking').exists():
             i = i + 1
             print('*** cloudflare 5s detection *** ', i)
             time.sleep(1)
@@ -176,17 +204,17 @@ def login():
     #scrollDown('.btn btn-primary')
 
     print('- fill user id')
-    if USER_ID_W_4 == '':
-        print('*** USER_ID_W_4 is empty ***')
+    if USER_ID_H_1 == '':
+        print('*** USER_ID_H_1 is empty ***')
         kill_browser()
     else:
-        write(USER_ID_W_4, into=S('@username'))
+        write(USER_ID_H_1, into=S('@username'))
     print('- fill password')
-    if PASS_WD_W_4 == '':
-        print('*** PASS_WD_W_4 is empty ***')
+    if PASS_WD_H_1 == '':
+        print('*** PASS_WD_H_1 is empty ***')
         kill_browser()
     else:
-        write(PASS_WD_W_4, into=S('@password'))
+        write(PASS_WD_H_1, into=S('@password'))
 
     # if Text('reCAPTCHA').exists():
     if Text('I\'m not a robot').exists() or Text('我不是机器人').exists():
@@ -314,38 +342,47 @@ def extendResult():
             print('*** %s ***' % result)
             renewVPS()
         elif 'renewed' in result:
-            result = '🎉 ' + result
+            'extend-' + NUM + '-result' = 'success'
+            
             print(result)
-            push(result)
+           # push(result)
+            Logout()
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
         # renewVPS()
     # return result
 
-
-def push(body):
+    
+def push():
     print('- waiting for push result')
-    # bark push
-    if BARK_KEY == '':
-        print('*** No BARK_KEY ***')
-    else:
-        barkurl = 'https://api.day.app/' + BARK_KEY
-        title = 'W-Extend'
-        rq_bark = requests.get(url=f'{barkurl}/{title}/{body}?isArchive=1')
-        if rq_bark.status_code == 200:
-            print('- bark push Done!')
-        else:
-            print('*** bark push fail! ***', rq_bark.content.decode('utf-8'))
-    # tg push
     if TG_BOT_TOKEN == '' or TG_USER_ID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
     else:
-        body = 'W-Extend-4\n\n' + body
-        server = 'https://api.telegram.org'
-        tgurl = server + '/bot' + TG_BOT_TOKEN + '/sendMessage'
-        rq_tg = requests.post(tgurl, data={'chat_id': TG_USER_ID, 'text': body}, headers={
-            'Content-Type': 'application/x-www-form-urlencoded'})
+        title = '🎉   Information    🎉\n\n'
+        if extend-1-result == 'success':
+           extend-1-push = 'Hax  -  01   Success  ' + extend-1-time + '\n'
+        else:
+           extend-1-push = 'Hax  -  01   Failed  ' + '\n'
+
+        if extend-2-result == 'success':
+           extend-2-push = 'Hax  -  02   Success  ' + extend-2-time + '\n'
+        else:
+           extend-2-push = 'Hax  -  02   Failed  ' + '\n'
+
+        if extend-3-result == 'success':
+           extend-3-push = 'Hax  -  03   Success  ' + extend-3-time + '\n'
+        else:
+           extend-3-push = 'Hax  -  03   Failed  ' + '\n'
+
+        if extend-4-result == 'success':
+           extend-4-push = 'Hax  -  04   Success  ' + extend-4-time + '\n'
+        else:
+           extend-4-push = 'Hax  -  04   Failed  ' + '\n'
+
+           tg-push = title + extend-1-push + extend-2-push + extend-3-push + extend-4-push + extend-5-push + extend-6-push + extend-7-push + extend-8-push + extend-9-push + extend-10-push + extend-11-push + extend-12-push + extend-13-push
+        tgapi = 'https://api.telegram.org' + '/bot' + TG_BOT_TOKEN + '/sendMessage'
+        rq_tg = requests.post(tgapi, data={'chat_id': TG_USER_ID, 'text': tg-push}, headers={'Content-Type': 'application/x-www-form-urlencoded'})
         if rq_tg.status_code == 200:
             print('- tg push Done!')
         else:
@@ -354,6 +391,12 @@ def push(body):
     print('- finish!')
     # kill_browser()
 
+def Logout():
+    wait_until(Button('Logout').exists)
+    highlight(Button('Logout'))
+    time.sleep(2)
+    click(Button('Logout'))
+    ## kill_browser()
 
 def funcCAPTCHA():
     print('- do CAPTCHA')
@@ -386,9 +429,9 @@ def funcCAPTCHA():
 audioFile = '/audio.mp3'
 imgFile = '/capture.png'
 ##
-urlWrite = urlDecode('d29pZGVuLmlk')
-urlLogin = urlDecode('aHR0cHM6Ly93b2lkZW4uaWQvbG9naW4=')
-urlRenew = urlDecode('aHR0cHM6Ly93b2lkZW4uaWQvdnBzLXJlbmV3')
+urlWrite = urlDecode('aGF4LmNvLmlk')
+urlLogin = urlDecode('aHR0cHM6Ly9oYXguY28uaWQvbG9naW4=')
+urlRenew = urlDecode('aHR0cHM6Ly9oYXguY28uaWQvdnBzLXJlbmV3')
 ##
 urlSpeech = urlDecode('aHR0cHM6Ly9zcGVlY2gtdG8tdGV4dC1kZW1vLm5nLmJsdWVtaXgubmV0')
 urlMJJ = urlDecode('aHR0cDovL21qanpwLmNm')
@@ -400,5 +443,27 @@ driver = uc.Chrome(use_subprocess=True)
 driver.set_window_size(785, 627)
 delay(2)
 set_driver(driver)
+## Hax 01
+NUM = '1'
+USER_ID_H = USER_ID_H_1
+PASS_WD_H = PASS_WD_H_1
+go_to(urlLogin)
+login()
+## Hax 02
+NUM = '2'
+USER_ID_H = USER_ID_H_2
+PASS_WD_H = PASS_WD_H_2
+go_to(urlLogin)
+login()
+## Hax 03
+NUM = '3'
+USER_ID_H = USER_ID_H_1
+PASS_WD_H = PASS_WD_H_1
+go_to(urlLogin)
+login()
+## Hax 04
+NUM = '4'
+USER_ID_H = USER_ID_H_2
+PASS_WD_H = PASS_WD_H_2
 go_to(urlLogin)
 login()
