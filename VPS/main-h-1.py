@@ -315,18 +315,15 @@ def extendResult():
             renewVPS()
         elif 'renewed' in result:
             result = '🎉 ' + result
-            with open('Api/hax-1.txt', 'w') as f:
-                f.write(result)
             print(result)
             push(result)
-            Logout()
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
         # renewVPS()
     # return result
 
-    
+
 def push(body):
     print('- waiting for push result')
     # bark push
@@ -334,7 +331,7 @@ def push(body):
         print('*** No BARK_KEY ***')
     else:
         barkurl = 'https://api.day.app/' + BARK_KEY
-        title = 'H-Extend-1'
+        title = 'H-Extend-4'
         rq_bark = requests.get(url=f'{barkurl}/{title}/{body}?isArchive=1')
         if rq_bark.status_code == 200:
             print('- bark push Done!')
@@ -357,12 +354,6 @@ def push(body):
     print('- finish!')
     # kill_browser()
 
-def Logout():
-    wait_until(Button('Logout').exists)
-    highlight(Button('Logout'))
-    time.sleep(2)
-    click(Button('Logout'))
-    kill_browser()
 
 def funcCAPTCHA():
     print('- do CAPTCHA')
