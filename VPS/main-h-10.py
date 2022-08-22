@@ -17,10 +17,10 @@ from selenium.webdriver.common.by import By
 ssl._create_default_https_context = ssl._create_unverified_context
 
 try:
-    USER_ID_H_5 = os.environ['USER_ID_H_5']
+    USER_ID_H_10 = os.environ['USER_ID_H_10']
 except:
     # 本地调试用
-    USER_ID_H_5 = ''
+    USER_ID_H_10 = ''
 
 try:
     PASS_WD_H_10 = os.environ['PASS_WD_H_10']
@@ -176,11 +176,11 @@ def login():
     #scrollDown('.btn btn-primary')
 
     print('- fill user id')
-    if USER_ID_H_5 == '':
-        print('*** USER_ID_H_5 is empty ***')
+    if USER_ID_H_10 == '':
+        print('*** USER_ID_H_10 is empty ***')
         kill_browser()
     else:
-        write(USER_ID_H_5, into=S('@username'))
+        write(USER_ID_H_10, into=S('@username'))
     print('- fill password')
     if PASS_WD_H_10 == '':
         print('*** PASS_WD_H_10 is empty ***')
