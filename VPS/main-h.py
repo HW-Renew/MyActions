@@ -319,7 +319,7 @@ def extendResult():
         elif 'renewed' in result:
             result = '🎉 ' + result
             print(result)
-            H-1-status = 'success'
+            H-1-status == 'success'
             H-1-content = result
             
     else:
