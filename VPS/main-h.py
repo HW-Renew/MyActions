@@ -184,13 +184,11 @@ def login():
     print('- fill user id')
     if USER_ID_H_1 == '':
         print('*** USER_ID_H_1 is empty ***')
-        kill_browser()
     else:
         write(USER_ID_H_1, into=S('@username'))
     print('- fill password')
     if PASS_WD_H_1 == '':
         print('*** PASS_WD_H_1 is empty ***')
-        kill_browser()
     else:
         write(PASS_WD_H_1, into=S('@password'))
 
@@ -332,17 +330,6 @@ def extendResult():
 
 def push(body):
     print('- waiting for push result')
-    # bark push
-    if BARK_KEY == '':
-        print('*** No BARK_KEY ***')
-    else:
-        barkurl = 'https://api.day.app/' + BARK_KEY
-        title = 'H-Extend-4'
-        rq_bark = requests.get(url=f'{barkurl}/{title}/{body}?isArchive=1')
-        if rq_bark.status_code == 200:
-            print('- bark push Done!')
-        else:
-            print('*** bark push fail! ***', rq_bark.content.decode('utf-8'))
     # tg push
     if TG_BOT_TOKEN == '' or TG_USER_ID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
@@ -358,7 +345,7 @@ def push(body):
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
 
     print('- finish!')
-    # kill_browser()
+
 
 
 def funcCAPTCHA():
