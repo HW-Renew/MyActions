@@ -319,8 +319,8 @@ def extendResult():
         elif 'renewed' in result:
             result = '🎉 ' + result
             print(result)
-            H-1-status == 'success'
-            H-1-content == result
+            h1status == 'success'
+            h1content == result
             
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
@@ -334,7 +334,7 @@ def push():
     if TG_BOT_TOKEN == '' or TG_USER_ID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
     else:
-        info = 'H-1' + H-1-status + H-1-content
+        info = 'H-1' + h1status + h1content
         content = 'H-Extend-Results\n\n' + info
         server = 'https://api.telegram.org'
         tgurl = server + '/bot' + TG_BOT_TOKEN + '/sendMessage'
