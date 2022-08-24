@@ -46,16 +46,9 @@ jobs:
             PASS_WD_H_7: ${{ secrets.PASS_WD_H_7 }}
             USER_ID_H_8: ${{ secrets.USER_ID_H_8 }}
             PASS_WD_H_8: ${{ secrets.PASS_WD_H_8 }}
-            BARK_KEY: ${{ secrets.BARK_KEY }}
             TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
             TG_USER_ID: ${{ secrets.TG_USER_ID }}
 
           run: |
-            python3 VPS/main-h-1.py
-            python3 VPS/main-h-2.py
-            python3 VPS/main-h-3.py
-            python3 VPS/main-h-4.py
-            python3 VPS/main-h-5.py
-            python3 VPS/main-h-6.py
-            python3 VPS/main-h-7.py
-            python3 VPS/main-h-8.py
+            python3 VPS/main-h.py
+
