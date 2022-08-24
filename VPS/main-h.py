@@ -162,7 +162,7 @@ def reCAPTCHA():
 def cloudflareDT():
     try:
         i = 0
-        while Text('Checking your browser before accessing').exists():
+        while Text('Checking').exists():
             i = i + 1
             print('*** cloudflare 5s detection *** ', i)
             time.sleep(1)
@@ -293,7 +293,6 @@ def renewVPS():
                 result = [key.web_element.text for key in textList][0]
                 body = '*** Possibly blocked by google! ***'
                 print(body, '\n', result)
-                push(body)
             else:
                 click('Renew VPS')
         else:
@@ -320,21 +319,23 @@ def extendResult():
         elif 'renewed' in result:
             result = '🎉 ' + result
             print(result)
-            push(result)
+            H-1-status = 'success'
+            H-1-content = result
+            
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
-        # renewVPS()
+        renewVPS()
     # return result
 
 
-def push(body):
+def push():
     print('- waiting for push result')
-    # tg push
     if TG_BOT_TOKEN == '' or TG_USER_ID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
     else:
-        body = 'H-Extend-1\n\n' + body
+        info = 'H-1' + H-1-status + H-1-content
+        content = 'H-Extend-Results\n\n' + info
         server = 'https://api.telegram.org'
         tgurl = server + '/bot' + TG_BOT_TOKEN + '/sendMessage'
         rq_tg = requests.post(tgurl, data={'chat_id': TG_USER_ID, 'text': body}, headers={
@@ -343,10 +344,7 @@ def push(body):
             print('- tg push Done!')
         else:
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
-
     print('- finish!')
-
-
 
 def funcCAPTCHA():
     print('- do CAPTCHA')
@@ -400,3 +398,4 @@ delay(2)
 set_driver(driver)
 go_to(urlLogin)
 login()
+push()
