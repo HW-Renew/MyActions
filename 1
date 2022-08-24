@@ -18,21 +18,27 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 try:
     USER_ID_H_1 = os.environ['USER_ID_H_1']
+    USER_ID_H_2 = os.environ['USER_ID_H_2']
+    USER_ID_H_3 = os.environ['USER_ID_H_3']
+    USER_ID_H_4 = os.environ['USER_ID_H_4']
 except:
     # 本地调试用
     USER_ID_H_1 = ''
-
+    USER_ID_H_2 = ''
+    USER_ID_H_3 = ''
+    USER_ID_H_4 = ''
+    
 try:
     PASS_WD_H_1 = os.environ['PASS_WD_H_1']
+    PASS_WD_H_2 = os.environ['PASS_WD_H_2']
+    PASS_WD_H_3 = os.environ['PASS_WD_H_3']
+    PASS_WD_H_4 = os.environ['PASS_WD_H_4']
 except:
     # 本地调试用
     PASS_WD_H_1 = ''
-
-try:
-    BARK_KEY = os.environ['BARK_KEY']
-except:
-    # 本地调试用
-    BARK_KEY = ''
+    PASS_WD_H_2 = ''
+    PASS_WD_H_3 = ''
+    PASS_WD_H_4 = ''
 
 try:
     TG_BOT_TOKEN = os.environ['TG_BOT_TOKEN']
@@ -382,6 +388,11 @@ def funcCAPTCHA():
     print('- captcha result: %d %s %d = %s' % (number1, method, number2, captcha_result))
     return captcha_result
 
+def Logout():
+    wait_until(Button('Logout').exists)
+    highlight(Button('Logout'))
+    time.sleep(2)
+    click(Button('Logout'))
 
 audioFile = '/audio.mp3'
 imgFile = '/capture.png'
