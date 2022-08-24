@@ -320,7 +320,7 @@ def extendResult():
             result = '🎉 ' + result
             print(result)
             H-1-status == 'success'
-            H-1-content = result
+            H-1-content == result
             
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
