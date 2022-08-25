@@ -51,7 +51,7 @@ except:
     # 本地调试用
     TG_USER_ID = ''
     
-h1status == 'success'
+H_1_S == 'running'
 
 def urlDecode(s):
     return str(base64.b64decode(s + '=' * (4 - len(s) % 4))).split('\'')[1]
@@ -319,8 +319,8 @@ def extendResult():
         elif 'renewed' in result:
             result = '🎉 ' + result
             print(result)
-            h1status == 'success'
-            h1content == result
+            H_1_S == 'success'
+            H_1_C == result
             
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
@@ -334,7 +334,7 @@ def push():
     if TG_BOT_TOKEN == '' or TG_USER_ID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
     else:
-        info = 'H-1' + h1status + h1content
+        info = 'H-1' + H_1_S + H_1_C
         content = 'H-Extend-Results\n\n' + info
         server = 'https://api.telegram.org'
         tgurl = server + '/bot' + TG_BOT_TOKEN + '/sendMessage'
