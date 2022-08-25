@@ -7,7 +7,6 @@ import ssl
 import sys
 import time
 import urllib
-
 import requests
 import undetected_chromedriver as uc
 from helium import *
@@ -17,22 +16,28 @@ from selenium.webdriver.common.by import By
 ssl._create_default_https_context = ssl._create_unverified_context
 
 try:
-    USER_ID_H_5 = os.environ['USER_ID_H_5']
+    USER_ID_H_1 = os.environ['USER_ID_H_1']
+    USER_ID_H_2 = os.environ['USER_ID_H_2']
+    USER_ID_H_3 = os.environ['USER_ID_H_3']
+    USER_ID_H_4 = os.environ['USER_ID_H_4']
 except:
     # 本地调试用
-    USER_ID_H_5 = ''
-
+    USER_ID_H_1 = ''
+    USER_ID_H_2 = ''
+    USER_ID_H_3 = ''
+    USER_ID_H_4 = ''
+    
 try:
-    PASS_WD_H_5 = os.environ['PASS_WD_H_5']
+    PASS_WD_H_1 = os.environ['PASS_WD_H_1']
+    PASS_WD_H_2 = os.environ['PASS_WD_H_2']
+    PASS_WD_H_3 = os.environ['PASS_WD_H_3']
+    PASS_WD_H_4 = os.environ['PASS_WD_H_4']
 except:
     # 本地调试用
-    PASS_WD_H_5 = ''
-
-try:
-    BARK_KEY = os.environ['BARK_KEY']
-except:
-    # 本地调试用
-    BARK_KEY = ''
+    PASS_WD_H_1 = ''
+    PASS_WD_H_2 = ''
+    PASS_WD_H_3 = ''
+    PASS_WD_H_4 = ''
 
 try:
     TG_BOT_TOKEN = os.environ['TG_BOT_TOKEN']
@@ -45,7 +50,8 @@ try:
 except:
     # 本地调试用
     TG_USER_ID = ''
-
+    
+h1status == 'success'
 
 def urlDecode(s):
     return str(base64.b64decode(s + '=' * (4 - len(s) % 4))).split('\'')[1]
@@ -156,7 +162,7 @@ def reCAPTCHA():
 def cloudflareDT():
     try:
         i = 0
-        while Text('Checking your browser before accessing').exists():
+        while Text('Checking').exists():
             i = i + 1
             print('*** cloudflare 5s detection *** ', i)
             time.sleep(1)
@@ -176,17 +182,15 @@ def login():
     #scrollDown('.btn btn-primary')
 
     print('- fill user id')
-    if USER_ID_H_5 == '':
-        print('*** USER_ID_H_5 is empty ***')
-        kill_browser()
+    if USER_ID_H_1 == '':
+        print('*** USER_ID_H_1 is empty ***')
     else:
-        write(USER_ID_H_5, into=S('@username'))
+        write(USER_ID_H_1, into=S('@username'))
     print('- fill password')
-    if PASS_WD_H_5 == '':
-        print('*** PASS_WD_H_5 is empty ***')
-        kill_browser()
+    if PASS_WD_H_1 == '':
+        print('*** PASS_WD_H_1 is empty ***')
     else:
-        write(PASS_WD_H_5, into=S('@password'))
+        write(PASS_WD_H_1, into=S('@password'))
 
     # if Text('reCAPTCHA').exists():
     if Text('I\'m not a robot').exists() or Text('我不是机器人').exists():
@@ -289,7 +293,6 @@ def renewVPS():
                 result = [key.web_element.text for key in textList][0]
                 body = '*** Possibly blocked by google! ***'
                 print(body, '\n', result)
-                push(body)
             else:
                 click('Renew VPS')
         else:
@@ -316,32 +319,23 @@ def extendResult():
         elif 'renewed' in result:
             result = '🎉 ' + result
             print(result)
-            push(result)
+            h1status == 'success'
+            h1content == result
+            
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
-        # renewVPS()
+        renewVPS()
     # return result
 
 
-def push(body):
+def push():
     print('- waiting for push result')
-    # bark push
-    if BARK_KEY == '':
-        print('*** No BARK_KEY ***')
-    else:
-        barkurl = 'https://api.day.app/' + BARK_KEY
-        title = 'H-Extend-4'
-        rq_bark = requests.get(url=f'{barkurl}/{title}/{body}?isArchive=1')
-        if rq_bark.status_code == 200:
-            print('- bark push Done!')
-        else:
-            print('*** bark push fail! ***', rq_bark.content.decode('utf-8'))
-    # tg push
     if TG_BOT_TOKEN == '' or TG_USER_ID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
     else:
-        body = 'H-Extend-5\n\n' + body
+        info = 'H-1' + h1status + h1content
+        content = 'H-Extend-Results\n\n' + info
         server = 'https://api.telegram.org'
         tgurl = server + '/bot' + TG_BOT_TOKEN + '/sendMessage'
         rq_tg = requests.post(tgurl, data={'chat_id': TG_USER_ID, 'text': body}, headers={
@@ -350,10 +344,7 @@ def push(body):
             print('- tg push Done!')
         else:
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
-
     print('- finish!')
-    # kill_browser()
-
 
 def funcCAPTCHA():
     print('- do CAPTCHA')
@@ -382,6 +373,11 @@ def funcCAPTCHA():
     print('- captcha result: %d %s %d = %s' % (number1, method, number2, captcha_result))
     return captcha_result
 
+def Logout():
+    wait_until(Button('Logout').exists)
+    highlight(Button('Logout'))
+    time.sleep(2)
+    click(Button('Logout'))
 
 audioFile = '/audio.mp3'
 imgFile = '/capture.png'
@@ -402,3 +398,4 @@ delay(2)
 set_driver(driver)
 go_to(urlLogin)
 login()
+push()

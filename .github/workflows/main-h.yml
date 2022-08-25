@@ -1,5 +1,5 @@
 
-name: 'H-Extend-All'
+name: 'H-Extend'
 
 on:
   #push:
@@ -21,6 +21,19 @@ jobs:
         - name: 'Update Chrome'           
           run: |
             brew reinstall --cask google-chrome
+            
+        - name: 'Set Cloudflare WARP'           
+          run: |
+            brew install wgcf
+            brew install wireguard-tools
+            wgcf register --accept-tos
+            wgcf generate
+            sudo mkdir /etc/wireguard/
+            sudo cp wgcf-profile.conf /etc/wireguard/wgcf.conf
+            wg-quick up wgcf
+            echo 
+            curl ip.p3terx.com
+            
         - name: 'Install requirements'
           run: |
             pip3 install -r VPS/requirements.txt
@@ -31,31 +44,23 @@ jobs:
         - name: 'Renew'
           env:
             USER_ID_H_1: ${{ secrets.USER_ID_H_1 }}
-            PASS_WD_H_1: ${{ secrets.PASS_WD_H_1 }}
             USER_ID_H_2: ${{ secrets.USER_ID_H_2 }}
-            PASS_WD_H_2: ${{ secrets.PASS_WD_H_2 }}
             USER_ID_H_3: ${{ secrets.USER_ID_H_3 }}
-            PASS_WD_H_3: ${{ secrets.PASS_WD_H_3 }}
             USER_ID_H_4: ${{ secrets.USER_ID_H_4 }}
-            PASS_WD_H_4: ${{ secrets.PASS_WD_H_4 }}
             USER_ID_H_5: ${{ secrets.USER_ID_H_5 }}
-            PASS_WD_H_5: ${{ secrets.PASS_WD_H_5 }}
             USER_ID_H_6: ${{ secrets.USER_ID_H_6 }}
-            PASS_WD_H_6: ${{ secrets.PASS_WD_H_6 }}
             USER_ID_H_7: ${{ secrets.USER_ID_H_7 }}
-            PASS_WD_H_7: ${{ secrets.PASS_WD_H_7 }}
             USER_ID_H_8: ${{ secrets.USER_ID_H_8 }}
+            PASS_WD_H_1: ${{ secrets.PASS_WD_H_1 }}
+            PASS_WD_H_2: ${{ secrets.PASS_WD_H_2 }}
+            PASS_WD_H_3: ${{ secrets.PASS_WD_H_3 }}
+            PASS_WD_H_4: ${{ secrets.PASS_WD_H_4 }}
+            PASS_WD_H_5: ${{ secrets.PASS_WD_H_5 }}
+            PASS_WD_H_6: ${{ secrets.PASS_WD_H_6 }}
+            PASS_WD_H_7: ${{ secrets.PASS_WD_H_7 }}
             PASS_WD_H_8: ${{ secrets.PASS_WD_H_8 }}
-            BARK_KEY: ${{ secrets.BARK_KEY }}
             TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
             TG_USER_ID: ${{ secrets.TG_USER_ID }}
 
           run: |
-            python3 VPS/main-h-1.py
-            python3 VPS/main-h-2.py
-            python3 VPS/main-h-3.py
-            python3 VPS/main-h-4.py
-            python3 VPS/main-h-5.py
-            python3 VPS/main-h-6.py
-            python3 VPS/main-h-7.py
-            python3 VPS/main-h-8.py
+            python3 VPS/main-h.py
