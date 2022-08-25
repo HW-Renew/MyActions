@@ -7,7 +7,6 @@ import ssl
 import sys
 import time
 import urllib
-
 import requests
 import undetected_chromedriver as uc
 from helium import *
@@ -51,7 +50,8 @@ try:
 except:
     # 本地调试用
     TG_USER_ID = ''
-
+    
+h1status == 'success'
 
 def urlDecode(s):
     return str(base64.b64decode(s + '=' * (4 - len(s) % 4))).split('\'')[1]
