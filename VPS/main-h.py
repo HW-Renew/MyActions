@@ -172,7 +172,7 @@ def cloudflareDT():
         print('Error:', e)
 
 
-def login():
+def login_1():
     print('- login')
     delay(1)
     # CF
@@ -205,6 +205,38 @@ def login():
         print('- reCAPTCHA not found!')
         submit()
 
+def login_2():
+    print('- login')
+    delay(1)
+    # CF
+    cloudflareDT()
+
+    #scrollDown('@login')
+    #scrollDown('.btn btn-primary')
+
+    print('- fill user id')
+    if USER_ID_H_2 == '':
+        print('*** USER_ID_H_2 is empty ***')
+    else:
+        write(USER_ID_H_2, into=S('@username'))
+    print('- fill password')
+    if PASS_WD_H_2 == '':
+        print('*** PASS_WD_H_2 is empty ***')
+    else:
+        write(PASS_WD_H_2, into=S('@password'))
+
+    # if Text('reCAPTCHA').exists():
+    if Text('I\'m not a robot').exists() or Text('我不是机器人').exists():
+        # if S('#recaptcha-token').exists():
+        print('- reCAPTCHA found!')
+        block = reCAPTCHA()
+        if block:
+            print('*** Possibly blocked by google! ***')
+        else:
+            submit()
+    else:
+        print('- reCAPTCHA not found!')
+        submit()
 
 def submit():
     print('- submit')
@@ -235,7 +267,7 @@ def submit():
         body = '*** 💣 some error in func submit!, stop running ***'
         print('Error:', e)
         screenshot()  # debug
-        sys.exit(body)
+        #sys.exit(body)
 
 
 def delay(i):
@@ -247,22 +279,16 @@ def screenshot():  # debug
     driver.get_screenshot_as_file(os.getcwd() + imgFile)
     print('- screenshot done')
     driver.tab_new(urlMJJ)
-    # driver.execute_script('''window.open('http://mjjzp.cf/',"_blank")''')
     driver.switch_to.window(driver.window_handles[1])
-    # switch_to('白嫖图床')
     delay(2)
     driver.find_element(By.ID, 'image').send_keys(os.getcwd() + imgFile)
     delay(4)
     click('上传')
     wait_until(Text('完成').exists)
     print('- upload done')
-    # textList = find_all(S('#code-url'))
-    # result = [key.web_element.text for key in textList][0]
     result = S('#code-url').web_element.text
     print('*** 📷 capture src:', result)
     driver.close()
-    # driver.switch_to.window(driver.window_handles[0])
-
 
 def renewVPS():
     global block
@@ -319,23 +345,17 @@ def extendResult():
         elif 'renewed' in result:
             result = '🎉 ' + result
             print(result)
-            H_1_S == 'success'
-            H_1_C == result
-            
     else:
         print(' *** 💣 some error in func renew!, stop running ***')
         screenshot()
         renewVPS()
-    # return result
-
 
 def push():
     print('- waiting for push result')
     if TG_BOT_TOKEN == '' or TG_USER_ID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
     else:
-        info = 'H-1' + H_1_S + H_1_C
-        content = 'H-Extend-Results\n\n' + info
+       # body = 'H-Extend-7\n\n' + body
         server = 'https://api.telegram.org'
         tgurl = server + '/bot' + TG_BOT_TOKEN + '/sendMessage'
         rq_tg = requests.post(tgurl, data={'chat_id': TG_USER_ID, 'text': body}, headers={
@@ -344,7 +364,6 @@ def push():
             print('- tg push Done!')
         else:
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
-    print('- finish!')
 
 def funcCAPTCHA():
     print('- do CAPTCHA')
@@ -395,7 +414,15 @@ print('- loading...')
 driver = uc.Chrome(use_subprocess=True)
 driver.set_window_size(785, 627)
 delay(2)
+# H_1
 set_driver(driver)
 go_to(urlLogin)
 login()
 push()
+Logout()
+# H_2
+set_driver(driver)
+go_to(urlLogin)
+login_2()
+push()
+Logout()
