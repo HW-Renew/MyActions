@@ -51,7 +51,7 @@ except:
     # 本地调试用
     TG_USER_ID = ''
     
-H_1_S == 'running'
+#H_1_S == 'running'
 
 def urlDecode(s):
     return str(base64.b64decode(s + '=' * (4 - len(s) % 4))).split('\'')[1]
