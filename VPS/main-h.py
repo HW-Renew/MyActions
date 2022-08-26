@@ -350,7 +350,7 @@ def extendResult():
         screenshot()
         renewVPS()
 
-def push():
+def push(body):
     print('- waiting for push result')
     if TG_BOT_TOKEN == '' or TG_USER_ID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
