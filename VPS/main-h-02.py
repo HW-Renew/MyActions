@@ -17,16 +17,16 @@ from selenium.webdriver.common.by import By
 ssl._create_default_https_context = ssl._create_unverified_context
 
 try:
-    USER_ID_H_2 = os.environ['USER_ID_H_2']
+    USER_ID_H_02 = os.environ['USER_ID_H_02']
 except:
     # 本地调试用
-    USER_ID_H_2 = ''
+    USER_ID_H_02 = ''
 
 try:
-    PASS_WD_H_2 = os.environ['PASS_WD_H_2']
+    PASS_WD_H_02 = os.environ['PASS_WD_H_02']
 except:
     # 本地调试用
-    PASS_WD_H_2 = ''
+    PASS_WD_H_02 = ''
 
 try:
     BARK_KEY = os.environ['BARK_KEY']
@@ -176,17 +176,17 @@ def login():
     #scrollDown('.btn btn-primary')
 
     print('- fill user id')
-    if USER_ID_H_2 == '':
-        print('*** USER_ID_H_2 is empty ***')
+    if USER_ID_H_02 == '':
+        print('*** USER_ID_H_02 is empty ***')
         kill_browser()
     else:
-        write(USER_ID_H_2, into=S('@username'))
+        write(USER_ID_H_02, into=S('@username'))
     print('- fill password')
-    if PASS_WD_H_2 == '':
-        print('*** PASS_WD_H_2 is empty ***')
+    if PASS_WD_H_02 == '':
+        print('*** PASS_WD_H_02 is empty ***')
         kill_browser()
     else:
-        write(PASS_WD_H_2, into=S('@password'))
+        write(PASS_WD_H_02, into=S('@password'))
 
     # if Text('reCAPTCHA').exists():
     if Text('I\'m not a robot').exists() or Text('我不是机器人').exists():
