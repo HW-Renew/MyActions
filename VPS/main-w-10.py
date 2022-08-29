@@ -17,16 +17,16 @@ from selenium.webdriver.common.by import By
 ssl._create_default_https_context = ssl._create_unverified_context
 
 try:
-    USER_ID_W_07 = os.environ['USER_ID_W_07']
+    USER_ID_W_10 = os.environ['USER_ID_W_10']
 except:
     # 本地调试用
-    USER_ID_W_07 = ''
+    USER_ID_W_10 = ''
 
 try:
-    PASS_WD_W_07 = os.environ['PASS_WD_W_07']
+    PASS_WD_W_10 = os.environ['PASS_WD_W_10']
 except:
     # 本地调试用
-    PASS_WD_W_07 = ''
+    PASS_WD_W_10 = ''
 
 try:
     BARK_KEY = os.environ['BARK_KEY']
@@ -176,17 +176,17 @@ def login():
     #scrollDown('.btn btn-primary')
 
     print('- fill user id')
-    if USER_ID_W_07 == '':
-        print('*** USER_ID_W_07 is empty ***')
+    if USER_ID_W_10 == '':
+        print('*** USER_ID_W_10 is empty ***')
         kill_browser()
     else:
-        write(USER_ID_W_07, into=S('@username'))
+        write(USER_ID_W_10, into=S('@username'))
     print('- fill password')
-    if PASS_WD_W_07 == '':
-        print('*** PASS_WD_W_07 is empty ***')
+    if PASS_WD_W_10 == '':
+        print('*** PASS_WD_W_10 is empty ***')
         kill_browser()
     else:
-        write(PASS_WD_W_07, into=S('@password'))
+        write(PASS_WD_W_10, into=S('@password'))
 
     # if Text('reCAPTCHA').exists():
     if Text('I\'m not a robot').exists() or Text('我不是机器人').exists():
@@ -341,7 +341,7 @@ def push(body):
     if TG_BOT_TOKEN == '' or TG_USER_ID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
     else:
-        body = 'W-07：' + body
+        body = 'W-10：' + body
         server = 'https://api.telegram.org'
         tgurl = server + '/bot' + TG_BOT_TOKEN + '/sendMessage'
         rq_tg = requests.post(tgurl, data={'chat_id': TG_USER_ID, 'text': body}, headers={
